@@ -116,28 +116,36 @@
     }
     #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-    /* ── Filter Panel ── */
+    /* ── Header back button ── */
+    .hd-back {
+      background: none; border: none;
+      color: var(--blue); font-size: 14px; font-weight: 700;
+      cursor: pointer; padding: 2px 8px 2px 0;
+      touch-action: manipulation; white-space: nowrap; flex-shrink: 0;
+    }
+    .hd-back:active { opacity: .7; }
+
+    /* ── Home menu ── */
     #appWrap { display: none; }
-    .f-wrap { padding: 12px 14px 0; }
-    .f-toggle {
+    .home-menu { padding: 20px 14px; display: flex; flex-direction: column; gap: 12px; }
+    .home-card {
       width: 100%; background: var(--surface);
       border: 1px solid var(--border); border-radius: var(--r);
-      padding: 12px 16px; color: var(--text);
-      font-size: 14px; font-weight: 600;
-      cursor: pointer; display: flex; align-items: center;
-      justify-content: space-between; gap: 8px;
-      touch-action: manipulation; transition: background .15s;
+      padding: 20px 18px; cursor: pointer;
+      display: flex; align-items: center; gap: 14px;
+      text-align: left; touch-action: manipulation;
+      transition: border-color .15s, background .15s;
     }
-    .f-toggle:active { background: var(--surface2); }
-    .f-arrow { transition: transform .25s; display: inline-block; }
-    .f-arrow.open { transform: rotate(180deg); }
-    .f-panel {
-      background: var(--surface); border: 1px solid var(--border);
-      border-top: none; border-radius: 0 0 var(--r) var(--r);
-      overflow: hidden; max-height: 0; transition: max-height .35s ease;
-    }
-    .f-panel.open { max-height: 9999px; }
-    .f-inner { padding: 16px; }
+    .home-card:active { background: var(--surface2); border-color: var(--accent); }
+    .home-card-icon { font-size: 36px; flex-shrink: 0; line-height: 1; }
+    .home-card-body { flex: 1; }
+    .home-card-title { font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+    .home-card-sub { font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .home-card-arrow { font-size: 24px; color: var(--dim); flex-shrink: 0; font-weight: 300; }
+
+    /* ── Filter Panel ── */
+    .f-wrap { padding: 12px 14px 0; }
+    .f-inner { padding: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); }
     .f-group { margin-bottom: 14px; }
     .f-label {
       font-size: 11px; font-weight: 700; color: var(--muted);
@@ -356,17 +364,252 @@
       .r-list  { padding: 10px 20px; }
       .f-wrap  { padding: 12px 20px 0; }
     }
+
+    /* ═══════════════════════════════════════════════
+       本日の傾向
+    ═══════════════════════════════════════════════ */
+    .trend-inner { padding: 14px; }
+
+    /* ── エントリーカード ── */
+    .trend-entry {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 14px; margin-bottom: 12px;
+    }
+    .te-head {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .te-num { font-size: 13px; font-weight: 700; color: var(--blue); }
+    .te-del {
+      background: none; border: 1px solid var(--red); color: var(--red);
+      border-radius: 20px; padding: 4px 10px; font-size: 12px;
+      cursor: pointer; touch-action: manipulation;
+    }
+
+    /* ── タイム入力 ── */
+    .time-rows { display: flex; flex-direction: column; gap: 10px; }
+    .time-row  { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .ti-lbl { font-size: 12px; color: var(--muted); min-width: 72px; }
+    .ti-field { display: flex; align-items: center; gap: 5px; }
+    .ti-box {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--r-sm); color: var(--text);
+      font-size: 18px; font-weight: 700; text-align: center;
+      padding: 8px 4px; outline: none;
+      -moz-appearance: textfield;
+    }
+    .ti-box::-webkit-inner-spin-button,
+    .ti-box::-webkit-outer-spin-button { -webkit-appearance: none; }
+    .ti-box:focus { border-color: var(--blue); }
+    .ti-box.w-min { width: 44px; }
+    .ti-box.w-sec { width: 52px; }
+    .ti-box.w-tenth { width: 40px; }
+    .ti-unit { font-size: 13px; color: var(--muted); }
+    .ti-opt { font-size: 11px; color: var(--dim); margin-left: 4px; }
+
+    /* ── 比較ボタン ── */
+    .btn-compare {
+      width: 100%; background: var(--blue); color: #fff; border: none;
+      border-radius: var(--r-sm); padding: 12px;
+      font-size: 15px; font-weight: 800; cursor: pointer;
+      touch-action: manipulation; transition: opacity .15s; margin-top: 14px;
+    }
+    .btn-compare:active { opacity: .8; }
+    .btn-add-entry {
+      width: 100%; background: none; border: 1px dashed var(--border);
+      color: var(--muted); border-radius: var(--r);
+      padding: 11px; font-size: 13px; cursor: pointer;
+      touch-action: manipulation; transition: background .15s;
+    }
+    .btn-add-entry:active { background: var(--surface2); }
+
+    /* ── 比較結果カード ── */
+    .tr-card {
+      margin-top: 10px; background: var(--surface);
+      border: 1px solid var(--border); border-radius: var(--r); overflow: hidden;
+    }
+    .tr-cond {
+      padding: 8px 12px; font-size: 11px; font-weight: 700;
+      color: var(--blue); background: rgba(88,166,255,.08);
+      border-bottom: 1px solid var(--border); line-height: 1.6;
+    }
+    .tr-section { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+    .tr-section:last-child { border-bottom: none; }
+    .tr-sec-title {
+      font-size: 10px; font-weight: 700; color: var(--muted);
+      text-transform: uppercase; letter-spacing: .08em; margin-bottom: 8px;
+    }
+    .tr-grid { display: grid; grid-template-columns: 1fr; gap: 6px; }
+    .tr-cell { background: var(--surface2); border-radius: var(--r-sm); padding: 8px 10px; }
+    .tr-k { font-size: 10px; color: var(--dim); margin-bottom: 3px; }
+    .tr-v { font-size: 15px; font-weight: 700; }
+    .tr-v.today { color: var(--accent); font-size: 17px; }
+    .tr-v.faster { color: var(--green); }
+    .tr-v.slower { color: var(--red); }
+    .tr-v.same   { color: var(--muted); }
+    .tr-sub { font-size: 11px; color: var(--dim); margin-top: 2px; }
+    .tr-pct { font-size: 12px; color: var(--muted); margin-top: 6px; padding: 6px 10px; background: var(--surface2); border-radius: var(--r-sm); }
+    .tr-pct em { color: var(--accent); font-style: normal; font-weight: 700; }
+    .tr-empty { padding: 24px; text-align: center; color: var(--muted); font-size: 13px; }
+    /* ── ラップ貼り付け ── */
+    .lap-paste {
+      width: 100%; background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--r-sm); color: var(--text); font-size: 13px;
+      font-family: monospace; padding: 9px 10px; resize: none; outline: none;
+      transition: border-color .2s; line-height: 1.5;
+    }
+    .lap-paste:focus  { border-color: var(--blue); }
+    .lap-paste.ok  { border-color: var(--green); }
+    .lap-paste.err { border-color: var(--red); }
+    .lap-parsed {
+      font-size: 11px; color: var(--green); margin-top: 5px;
+      min-height: 16px; line-height: 1.4;
+    }
+    .lap-parsed.err { color: var(--red); }
+
+    .btn-to-summary {
+      display: block; width: 100%;
+      background: var(--surface2); border: 1px solid var(--accent);
+      border-radius: var(--r-sm); padding: 11px;
+      color: var(--accent); font-size: 13px; font-weight: 700;
+      cursor: pointer; text-align: center; margin-top: 8px;
+      touch-action: manipulation; transition: background .15s;
+    }
+    .btn-to-summary:active { background: var(--accent-dim); }
+
+    /* ── データ管理ページ ── */
+    .data-page { padding: 16px 14px; display: flex; flex-direction: column; gap: 16px; }
+    .data-section {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 18px 16px;
+    }
+    .data-section.danger-section { border-color: rgba(248,81,73,.35); }
+    .data-section-title { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+    .data-section-sub { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 14px; }
+    .data-count-wrap {
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--r-sm); padding: 10px 14px; margin-bottom: 14px;
+    }
+    .data-count-lbl { font-size: 13px; color: var(--muted); }
+    .data-count-val { font-size: 15px; font-weight: 700; color: var(--text); }
+    .drop-zone-inline {
+      border: 2px dashed var(--border); border-radius: var(--r-sm);
+      padding: 20px 14px; text-align: center;
+      transition: border-color .15s, background .15s;
+    }
+    .drop-zone-inline.over { border-color: var(--accent); background: var(--accent-dim); }
+    .btn-danger {
+      width: 100%; background: rgba(248,81,73,.12); border: 1px solid rgba(248,81,73,.5);
+      color: var(--red); border-radius: var(--r-sm); padding: 13px;
+      font-size: 14px; font-weight: 700; cursor: pointer; touch-action: manipulation;
+      transition: background .15s;
+    }
+    .btn-danger:active { background: rgba(248,81,73,.25); }
+
+    @media (min-width: 640px) {
+      .home-menu { padding: 20px 20px; }
+      .tr-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── タイムスロット ── */
+    .te-slots { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+    .te-slot {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--r-sm); padding: 12px;
+    }
+    .te-slot-head {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .te-slot-num { font-size: 12px; font-weight: 700; color: var(--muted); }
+    .ts-del {
+      background: none; border: 1px solid var(--dim); color: var(--dim);
+      border-radius: 20px; padding: 3px 9px; font-size: 11px;
+      cursor: pointer; touch-action: manipulation; transition: border-color .15s, color .15s;
+    }
+    .ts-del:active { border-color: var(--red); color: var(--red); }
+    .btn-add-slot {
+      width: 100%; background: none; border: 1px dashed var(--accent);
+      color: var(--accent); border-radius: var(--r-sm);
+      padding: 9px; font-size: 13px; cursor: pointer; margin-top: 8px;
+      touch-action: manipulation; transition: background .15s;
+    }
+    .btn-add-slot:active { background: var(--accent-dim); }
+
+    /* ── 比較一覧テーブル ── */
+    .tsm-wrap { padding: 0 14px 20px; }
+    .tsm-title {
+      font-size: 14px; font-weight: 800; color: var(--accent);
+      padding: 14px 0 10px; margin-top: 4px;
+      border-top: 2px solid var(--accent); letter-spacing: .04em;
+    }
+    .tsm-group { margin-bottom: 16px; }
+    .tsm-cond {
+      font-size: 11px; font-weight: 700; color: var(--blue);
+      background: rgba(88,166,255,.08);
+      border: 1px solid var(--border); border-bottom: none;
+      border-radius: var(--r) var(--r) 0 0;
+      padding: 8px 12px; line-height: 1.6;
+    }
+    .tsm-tbl-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .tsm-tbl {
+      border-collapse: collapse; width: 100%; min-width: 240px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 0 0 var(--r) var(--r);
+    }
+    .tsm-tbl thead tr th {
+      background: var(--surface2); padding: 8px 12px;
+      font-size: 12px; font-weight: 700; color: var(--blue);
+      text-align: center; border-bottom: 2px solid var(--border);
+      white-space: nowrap;
+    }
+    .tsm-row-h {
+      background: var(--surface2); padding: 7px 10px;
+      font-size: 11px; font-weight: 600; color: var(--muted);
+      text-align: left; white-space: nowrap;
+      border-right: 1px solid var(--border);
+    }
+    .tsm-td {
+      padding: 7px 12px; text-align: center;
+      font-size: 13px; font-weight: 600; color: var(--text);
+      border-bottom: 1px solid var(--border); white-space: nowrap;
+    }
+    .tsm-sep th {
+      background: rgba(88,166,255,.06); text-align: left;
+      font-size: 10px; font-weight: 700; color: var(--blue);
+      padding: 5px 10px; text-transform: uppercase; letter-spacing: .08em;
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .tsm-tbl tbody tr:last-child .tsm-td,
+    .tsm-tbl tbody tr:last-child .tsm-row-h { border-bottom: none; }
+    .tsm-td.today  { color: var(--accent); font-weight: 800; font-size: 14px; }
+    .tsm-td.faster { color: var(--green); }
+    .tsm-td.slower { color: var(--red); }
+    .tsm-td.same   { color: var(--muted); }
+    .tsm-slot-lbl  { font-size: 10px; font-weight: 400; color: var(--muted); display: block; }
+    .tsm-avg-th {
+      color: var(--accent) !important; letter-spacing: .04em;
+      background: rgba(212,160,23,.12) !important;
+      border-right: 2px solid rgba(212,160,23,.35) !important;
+    }
+    .tsm-td.avg-col {
+      background: rgba(212,160,23,.06);
+      border-right: 2px solid rgba(212,160,23,.25);
+    }
+    .tsm-td.avg-col.today { font-size: 15px; }
+
   </style>
 </head>
 <body>
 
 <!-- ── Header ── -->
 <header class="hd">
+  <button class="hd-back" id="btnBack" onclick="navigateHome()" style="display:none">‹ 戻る</button>
   <div class="hd-title">🏇 競馬レース検索</div>
   <div class="hd-right" id="hdRight" style="display:none">
     <div class="hd-count" id="hdCount"></div>
-    <button class="hd-btn add" onclick="document.getElementById('fi').click()">＋追加</button>
-    <button class="hd-btn del" onclick="clearData()">削除</button>
   </div>
 </header>
 
@@ -390,101 +633,163 @@
 <!-- ── App ── -->
 <div id="appWrap">
 
-  <div class="f-wrap">
-    <button class="f-toggle" onclick="togglePanel()">
-      <span>🔍 検索フィルタ</span>
-      <span class="f-arrow" id="farrow">▼</span>
-    </button>
-    <div class="f-panel" id="fpanel">
-    <div class="f-inner">
-
-      <div class="f-group">
-        <div class="f-label">年月日</div>
-        <div class="row2">
-          <input type="date" class="finput" id="dFrom">
-          <input type="date" class="finput" id="dTo">
+  <!-- ══ ホーム ══ -->
+  <div id="pg-home">
+    <div class="home-menu">
+      <button class="home-card" onclick="navigateTo('search')">
+        <div class="home-card-icon">🔍</div>
+        <div class="home-card-body">
+          <div class="home-card-title">レース検索</div>
+          <div class="home-card-sub">過去レースを条件で絞り込む</div>
         </div>
-      </div>
-
-      <div class="f-group">
-        <div class="f-label">開催場所</div>
-        <div class="pill-row" id="venueRow"></div>
-      </div>
-
-      <div class="f-group">
-        <div class="f-label">コース</div>
-        <div class="pill-row">
-          <button class="pill" data-g="course" data-v="芝"   onclick="tog(this)">芝（内）</button>
-          <button class="pill" data-g="course" data-v="芝外" onclick="tog(this)">芝外回り</button>
-          <button class="pill" data-g="course" data-v="ダート" onclick="tog(this)">ダート</button>
+        <span class="home-card-arrow">›</span>
+      </button>
+      <button class="home-card" onclick="navigateTo('trend')">
+        <div class="home-card-icon">📈</div>
+        <div class="home-card-body">
+          <div class="home-card-title">本日の傾向</div>
+          <div class="home-card-sub">今日のタイムを過去と比較する</div>
         </div>
-      </div>
-
-      <div class="f-group">
-        <div class="f-label">距離 — 1つ選択（場所・コースで絞り込まれます）</div>
-        <div class="pill-row" id="distRow"><span style="color:var(--dim);font-size:13px">場所またはコースを選ぶと候補が表示されます</span></div>
-      </div>
-
-      <div class="f-group">
-        <div class="f-label">馬場状態</div>
-        <div class="pill-row">
-          <button class="pill" data-g="baba" data-v="1" onclick="tog(this)">良</button>
-          <button class="pill" data-g="baba" data-v="2" onclick="tog(this)">稍重</button>
-          <button class="pill" data-g="baba" data-v="3" onclick="tog(this)">重</button>
-          <button class="pill" data-g="baba" data-v="4" onclick="tog(this)">不良</button>
+        <span class="home-card-arrow">›</span>
+      </button>
+      <button class="home-card" onclick="navigateTo('data')">
+        <div class="home-card-icon">🗂️</div>
+        <div class="home-card-body">
+          <div class="home-card-title">レース情報の追加</div>
+          <div class="home-card-sub">CSVの読み込み・データの削除</div>
         </div>
-      </div>
-
-      <div class="f-group">
-        <div class="f-label">クラス</div>
-        <div class="pill-row">
-          <button class="pill" data-g="cls" data-v="195" onclick="tog(this)">G1</button>
-          <button class="pill" data-g="cls" data-v="179" onclick="tog(this)">G2</button>
-          <button class="pill" data-g="cls" data-v="163" onclick="tog(this)">G3</button>
-          <button class="pill" data-g="cls" data-v="131" onclick="tog(this)">オープン</button>
-          <button class="pill" data-g="cls" data-v="115" onclick="tog(this)">OP(L)</button>
-          <button class="pill" data-g="cls" data-v="67"  onclick="tog(this)">3勝クラス</button>
-          <button class="pill" data-g="cls" data-v="43"  onclick="tog(this)">2勝クラス</button>
-          <button class="pill" data-g="cls" data-v="23"  onclick="tog(this)">1勝クラス</button>
-          <button class="pill" data-g="cls" data-v="7"   onclick="tog(this)">未勝利</button>
-          <button class="pill" data-g="cls" data-v="15"  onclick="tog(this)">新馬</button>
-        </div>
-      </div>
-
-      <div class="f-group">
-        <div class="f-label">世代</div>
-        <div class="pill-row">
-          <button class="pill" data-g="gen" data-v="11" onclick="tog(this)">2歳</button>
-          <button class="pill" data-g="gen" data-v="12" onclick="tog(this)">3歳</button>
-          <button class="pill" data-g="gen" data-v="13" onclick="tog(this)">3歳以上</button>
-          <button class="pill" data-g="gen" data-v="14" onclick="tog(this)">4歳以上</button>
-        </div>
-      </div>
-
-      <div class="f-actions">
-        <button class="btn-search" onclick="search()">検索する</button>
-        <button class="btn-reset"  onclick="reset()">リセット</button>
-      </div>
-
-    </div>
+        <span class="home-card-arrow">›</span>
+      </button>
     </div>
   </div>
 
-  <div class="r-bar">
-    <div class="r-count" id="rcount"></div>
-    <select class="sort-sel" id="sortSel" onchange="search()">
-      <option value="dd">日付 新→古</option>
-      <option value="da">日付 古→新</option>
-      <option value="ta">1着タイム 速→遅</option>
-      <option value="td">1着タイム 遅→速</option>
-      <option value="za">距離 短→長</option>
-      <option value="zd">距離 長→短</option>
-    </select>
+  <!-- ══ 検索ページ ══ -->
+  <div id="pg-search" style="display:none">
+    <div class="f-wrap">
+      <div class="f-inner">
+
+        <div class="f-group">
+          <div class="f-label">年月日</div>
+          <div class="row2">
+            <input type="date" class="finput" id="dFrom">
+            <input type="date" class="finput" id="dTo">
+          </div>
+        </div>
+
+        <div class="f-group">
+          <div class="f-label">開催場所</div>
+          <div class="pill-row" id="venueRow"></div>
+        </div>
+
+        <div class="f-group">
+          <div class="f-label">コース</div>
+          <div class="pill-row">
+            <button class="pill" data-g="course" data-v="芝"    onclick="tog(this)">芝（内）</button>
+            <button class="pill" data-g="course" data-v="芝外"  onclick="tog(this)">芝外回り</button>
+            <button class="pill" data-g="course" data-v="ダート" onclick="tog(this)">ダート</button>
+          </div>
+        </div>
+
+        <div class="f-group">
+          <div class="f-label">距離 — 1つ選択（場所・コースで絞り込まれます）</div>
+          <div class="pill-row" id="distRow"><span style="color:var(--dim);font-size:13px">場所またはコースを選ぶと候補が表示されます</span></div>
+        </div>
+
+        <div class="f-group">
+          <div class="f-label">馬場状態</div>
+          <div class="pill-row">
+            <button class="pill" data-g="baba" data-v="1" onclick="tog(this)">良</button>
+            <button class="pill" data-g="baba" data-v="2" onclick="tog(this)">稍重</button>
+            <button class="pill" data-g="baba" data-v="3" onclick="tog(this)">重</button>
+            <button class="pill" data-g="baba" data-v="4" onclick="tog(this)">不良</button>
+          </div>
+        </div>
+
+        <div class="f-group">
+          <div class="f-label">クラス</div>
+          <div class="pill-row">
+            <button class="pill" data-g="cls" data-v="195" onclick="tog(this)">G1</button>
+            <button class="pill" data-g="cls" data-v="179" onclick="tog(this)">G2</button>
+            <button class="pill" data-g="cls" data-v="163" onclick="tog(this)">G3</button>
+            <button class="pill" data-g="cls" data-v="131" onclick="tog(this)">オープン</button>
+            <button class="pill" data-g="cls" data-v="115" onclick="tog(this)">OP(L)</button>
+            <button class="pill" data-g="cls" data-v="67"  onclick="tog(this)">3勝クラス</button>
+            <button class="pill" data-g="cls" data-v="43"  onclick="tog(this)">2勝クラス</button>
+            <button class="pill" data-g="cls" data-v="23"  onclick="tog(this)">1勝クラス</button>
+            <button class="pill" data-g="cls" data-v="7"   onclick="tog(this)">未勝利</button>
+            <button class="pill" data-g="cls" data-v="15"  onclick="tog(this)">新馬</button>
+          </div>
+        </div>
+
+        <div class="f-group">
+          <div class="f-label">世代</div>
+          <div class="pill-row">
+            <button class="pill" data-g="gen" data-v="11" onclick="tog(this)">2歳</button>
+            <button class="pill" data-g="gen" data-v="12" onclick="tog(this)">3歳</button>
+            <button class="pill" data-g="gen" data-v="13" onclick="tog(this)">3歳以上</button>
+            <button class="pill" data-g="gen" data-v="14" onclick="tog(this)">4歳以上</button>
+          </div>
+        </div>
+
+        <div class="f-actions">
+          <button class="btn-search" onclick="search()">検索する</button>
+          <button class="btn-reset"  onclick="reset()">リセット</button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="r-bar">
+      <div class="r-count" id="rcount"></div>
+      <select class="sort-sel" id="sortSel" onchange="search()">
+        <option value="dd">日付 新→古</option>
+        <option value="da">日付 古→新</option>
+        <option value="ta">1着タイム 速→遅</option>
+        <option value="td">1着タイム 遅→速</option>
+        <option value="za">距離 短→長</option>
+        <option value="zd">距離 長→短</option>
+      </select>
+    </div>
+
+    <div id="avgWrap"></div>
+    <div id="rList" class="r-list"></div>
+    <div id="pg" class="pg"></div>
   </div>
 
-  <div id="avgWrap"></div>
-  <div id="rList" class="r-list"></div>
-  <div id="pg" class="pg"></div>
+  <!-- ══ 本日の傾向ページ ══ -->
+  <div id="pg-trend" style="display:none">
+    <div class="trend-inner">
+      <div id="trendEntries"></div>
+      <button class="btn-add-entry" onclick="addTrendEntry()">＋ レースを追加</button>
+    </div>
+    <div id="trendSummaryWrap" style="display:none"></div>
+  </div>
+
+  <!-- ══ レース情報の追加ページ ══ -->
+  <div id="pg-data" style="display:none">
+    <div class="data-page">
+
+      <div class="data-section">
+        <div class="data-section-title">📥 CSVを追加</div>
+        <div class="data-section-sub">allracerecord.csv を読み込みます。<br>既存データと重複するレースは自動でスキップされます。</div>
+        <div class="data-count-wrap">
+          <span class="data-count-lbl">現在のデータ数</span>
+          <span class="data-count-val" id="dataPageCount">—</span>
+        </div>
+        <div class="drop-zone-inline" id="dropZoneData">
+          <div class="drop-text">CSVをここにドロップ、または</div>
+          <button class="btn-upload" onclick="document.getElementById('fi').click()">ファイルを選択</button>
+        </div>
+      </div>
+
+      <div class="data-section danger-section">
+        <div class="data-section-title">🗑 データを削除</div>
+        <div class="data-section-sub">保存されているすべてのレースデータを削除します。<br>削除後は再度CSVを読み込むことで復元できます。</div>
+        <button class="btn-danger" onclick="clearData()">すべてのデータを削除する</button>
+      </div>
+
+    </div>
+  </div>
 
 </div>
 
@@ -639,6 +944,15 @@ dz.addEventListener('drop', e => {
   if (e.dataTransfer.files[0]) readFile(e.dataTransfer.files[0], false);
 });
 
+// Drag & drop on data page
+const dzData = document.getElementById('dropZoneData');
+dzData.addEventListener('dragover',  e => { e.preventDefault(); dzData.classList.add('over'); });
+dzData.addEventListener('dragleave', () => dzData.classList.remove('over'));
+dzData.addEventListener('drop', e => {
+  e.preventDefault(); dzData.classList.remove('over');
+  if (e.dataTransfer.files[0]) readFile(e.dataTransfer.files[0], all.length > 0);
+});
+
 function readFile(file, isAppend) {
   showToast('📂 読み込み中...');
   const reader = new FileReader();
@@ -692,24 +1006,42 @@ function initApp(rows, animate) {
   document.getElementById('appWrap').style.display  = 'block';
   document.getElementById('hdRight').style.display  = 'flex';
   updateHdCount();
-
-  // 距離ピルを全件で初期構築
+  updateDataPageCount();
   updateDistPills();
 
-  // フィルターパネルを開いた状態で表示
-  document.getElementById('fpanel').classList.add('open');
-  document.getElementById('farrow').classList.add('open');
+  navigateTo('home');
 
-  // 結果は検索するまで表示しない
   document.getElementById('rList').innerHTML =
     `<div class="empty">🔍 条件を設定して「検索する」を押してください</div>`;
   document.getElementById('rcount').innerHTML = '';
   document.getElementById('pg').innerHTML     = '';
 }
 
+// =====================================================================
+// Page navigation
+// =====================================================================
+function navigateTo(page) {
+  ['home', 'search', 'trend', 'data'].forEach(p => {
+    document.getElementById(`pg-${p}`).style.display = p === page ? '' : 'none';
+  });
+  const btnBack = document.getElementById('btnBack');
+  btnBack.style.display = page === 'home' ? 'none' : '';
+  if (page === 'trend' && trendIdCounter === 0) addTrendEntry();
+  if (page === 'data') updateDataPageCount();
+}
+
+function navigateHome() {
+  navigateTo('home');
+}
+
 function updateHdCount() {
   document.getElementById('hdCount').innerHTML =
     `💾 <em>${all.length.toLocaleString()}</em>件`;
+}
+
+function updateDataPageCount() {
+  const el = document.getElementById('dataPageCount');
+  if (el) el.textContent = `${all.length.toLocaleString()} 件`;
 }
 
 // ── ファイル選択ハンドラ（単一に統合）──
@@ -740,12 +1072,6 @@ async function clearData() {
 // =====================================================================
 // Filter panel
 // =====================================================================
-function togglePanel() {
-  const panel = document.getElementById('fpanel');
-  const arrow = document.getElementById('farrow');
-  const open  = panel.classList.toggle('open');
-  arrow.classList.toggle('open', open);
-}
 function tog(btn) {
   btn.classList.toggle('on');
   // 場所またはコースが変わったら距離候補を再構築
@@ -1004,6 +1330,27 @@ function buildKeibaLabLinks(races) {
   return `<div class="klab-wrap"><div class="sec-label">📎 コースデータ (keibalab)</div><div class="klab-links">${links}</div></div>`;
 }
 
+function buildTrendKlabLinks(venues, courses, dists) {
+  if (!dists.length) return '';
+  const vList = venues.length  ? venues  : Object.keys(VENUE_URL);
+  const cList = courses.length ? courses : Object.keys(COURSE_URL);
+  const combos = [];
+  for (const v of vList) for (const c of cList) for (const d of dists) combos.push({v, c, d});
+  if (!combos.length) return '';
+  if (combos.length > 12) {
+    return `<div class="klab-wrap"><div class="sec-label">📎 コースデータ (keibalab)</div><p class="klab-too-many">条件を絞り込むとリンクが表示されます（現在 ${combos.length} 通り）</p></div>`;
+  }
+  const links = combos.map(({v, c, d}) => {
+    const vs = VENUE_URL[v], cs = COURSE_URL[c];
+    if (!vs || !cs) return '';
+    const url  = `https://www.keibalab.jp/yosou/coursedata/${vs}/${cs}${d}/`;
+    const clbl = c === 'ダート' ? 'ダート' : (c === '芝外' ? '芝(外)' : '芝(内)');
+    return `<a href="${url}" target="_blank" rel="noopener" class="klab-link">${v} ${clbl} ${parseInt(d).toLocaleString()}m →</a>`;
+  }).filter(Boolean).join('');
+  if (!links) return '';
+  return `<div class="klab-wrap"><div class="sec-label">📎 コースデータ (keibalab)</div><div class="klab-links">${links}</div></div>`;
+}
+
 function showRaceList() {
   raceListOpen = !raceListOpen;
   const list = document.getElementById('rList');
@@ -1151,6 +1498,689 @@ function goPage(p) {
   page = p;
   render();
   window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// =====================================================================
+// 本日の傾向
+// =====================================================================
+let trendIdCounter   = 0;
+let trendSlotCounter = 0;
+let trendSummary     = [];
+
+// ── エントリー追加 / 削除 ─────────────────────────────────────────
+
+function addTrendEntry() {
+  const id  = ++trendIdCounter;
+  const div = document.createElement('div');
+  div.id        = `te-${id}`;
+  div.className = 'trend-entry';
+  div.innerHTML = buildEntryHTML(id);
+  document.getElementById('trendEntries').appendChild(div);
+  addTrendSlot(id);
+  renumberEntries();
+}
+
+function removeTrendEntry(id) {
+  const el = document.getElementById(`te-${id}`);
+  if (el) el.remove();
+  trendSummary = trendSummary.filter(item => item.entryId !== id);
+  renumberEntries();
+  renderTrendSummary();
+}
+
+function scrollToSummary() {
+  const el = document.getElementById('trendSummaryWrap');
+  if (el && el.style.display !== 'none') {
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function renumberEntries() {
+  document.querySelectorAll('#trendEntries .trend-entry').forEach((el, i) => {
+    const n = el.querySelector('.te-num');
+    if (n) n.textContent = `レース #${i + 1}`;
+  });
+}
+
+// ── スロット追加 / 削除 ───────────────────────────────────────────
+
+function addTrendSlot(entryId) {
+  const slotId  = ++trendSlotCounter;
+  const slotsEl = document.getElementById(`te-slots-${entryId}`);
+  if (!slotsEl) return;
+  const slotNum = slotsEl.querySelectorAll('.te-slot').length + 1;
+  const tmp = document.createElement('div');
+  tmp.innerHTML = buildSlotHTML(entryId, slotId, slotNum);
+  slotsEl.appendChild(tmp.firstElementChild);
+  autoAdvanceSetup(slotId);
+  updateSlotDeleteBtns(entryId);
+}
+
+function removeTrendSlot(slotId, entryId) {
+  const el = document.getElementById(`ts-${slotId}`);
+  if (el) el.remove();
+  trendSummary = trendSummary.filter(item => item.id !== slotId);
+  renderTrendSummary();
+  updateSlotDeleteBtns(entryId);
+}
+
+function updateSlotDeleteBtns(entryId) {
+  const slotsEl = document.getElementById(`te-slots-${entryId}`);
+  if (!slotsEl) return;
+  const slots = slotsEl.querySelectorAll('.te-slot');
+  const show  = slots.length > 1;
+  slots.forEach(s => {
+    const btn = s.querySelector('.ts-del');
+    if (btn) btn.style.display = show ? '' : 'none';
+  });
+}
+
+function storeTrendResult(slotId, entryId, d) {
+  trendSummary = trendSummary.filter(item => item.id !== slotId);
+  if (!d.pool || !d.timeStats) return;
+  const {timeStats, todayTime, agariStats, todayAgari, mae3FStats, todayMae3F, mae5FStats, todayMae5F} = d;
+  // スロット番号 = エントリー内の現在位置
+  const slotsEl = document.getElementById(`te-slots-${entryId}`);
+  const slots   = slotsEl ? [...slotsEl.querySelectorAll('.te-slot')] : [];
+  const slotEl  = document.getElementById(`ts-${slotId}`);
+  const slotNum = slotEl ? slots.indexOf(slotEl) + 1 : 1;
+  trendSummary.push({
+    id: slotId,
+    entryId,
+    slotNum,
+    condKey:       d.condLabel,
+    condLabel:     d.condLabel,
+    pool:          d.pool,
+    todayTime,
+    timeAvg:       timeStats.avg,
+    timeDiff:      todayTime  != null ? todayTime  - timeStats.avg     : null,
+    timeDiffTrim:  todayTime  != null ? todayTime  - timeStats.trimAvg : null,
+    todayAgari,
+    agariAvg:      agariStats ? agariStats.avg     : null,
+    agariDiff:     todayAgari != null && agariStats ? todayAgari - agariStats.avg     : null,
+    agariDiffTrim: todayAgari != null && agariStats ? todayAgari - agariStats.trimAvg : null,
+    todayMae3F,
+    mae3FAvg:      mae3FStats ? mae3FStats.avg     : null,
+    mae3FDiff:     todayMae3F != null && mae3FStats ? todayMae3F - mae3FStats.avg     : null,
+    mae3FDiffTrim: todayMae3F != null && mae3FStats ? todayMae3F - mae3FStats.trimAvg : null,
+    todayMae5F,
+    mae5FAvg:      mae5FStats ? mae5FStats.avg     : null,
+    mae5FDiff:     todayMae5F != null && mae5FStats ? todayMae5F - mae5FStats.avg     : null,
+    mae5FDiffTrim: todayMae5F != null && mae5FStats ? todayMae5F - mae5FStats.trimAvg : null,
+  });
+  renderTrendSummary();
+}
+
+function renderTrendSummary() {
+  const wrap = document.getElementById('trendSummaryWrap');
+  if (!wrap) return;
+  if (!trendSummary.length) { wrap.innerHTML = ''; wrap.style.display = 'none'; return; }
+
+  const diffCls = v => v == null ? '' : v < -0.05 ? 'faster' : v > 0.05 ? 'slower' : 'same';
+  const diffStr = v => {
+    if (v == null) return '-';
+    const sign = v < -0.05 ? '▼' : v > 0.05 ? '▲' : '±';
+    return `${sign}${Math.abs(v).toFixed(1)}秒`;
+  };
+  const meanOf = arr => {
+    const v = arr.filter(x => x != null);
+    return v.length ? v.reduce((s, x) => s + x, 0) / v.length : null;
+  };
+  const mkRow = (label, cells) =>
+    `<tr><th class="tsm-row-h">${label}</th>${cells.map(({v, c}) =>
+      `<td class="tsm-td${c ? ' ' + c : ''}">${v}</td>`).join('')}</tr>`;
+  const mkSep = (label, span) =>
+    `<tr class="tsm-sep"><th colspan="${span}">${label}</th></tr>`;
+
+  const groups = new Map();
+  for (const item of trendSummary) {
+    if (!groups.has(item.condKey)) groups.set(item.condKey, []);
+    groups.get(item.condKey).push(item);
+  }
+
+  let html = '<div class="tsm-wrap"><div class="tsm-title">📋 比較一覧</div>';
+
+  for (const [, items] of groups) {
+    items.sort((a, b) => a.id - b.id);
+    const showAvg = items.length >= 2;
+    const span    = items.length + 1 + (showAvg ? 1 : 0);
+
+    // 列ヘッダー（平均列を先頭に）
+    const entryOrder = [...document.querySelectorAll('#trendEntries .trend-entry')]
+      .map(el => +el.id.slice(3));
+    const dispNum = id => { const p = entryOrder.indexOf(id); return p >= 0 ? p + 1 : id; };
+    const avgTh = showAvg ? `<th class="tsm-avg-th">平均</th>` : '';
+    const thHtml = avgTh + items.map(i => {
+      const multi = items.filter(x => x.entryId === i.entryId).length > 1;
+      return multi
+        ? `<th>レース #${dispNum(i.entryId)}<span class="tsm-slot-lbl">タイム #${i.slotNum}</span></th>`
+        : `<th>レース #${dispNum(i.entryId)}</th>`;
+    }).join('');
+
+    // avg セルを先頭に差し込むヘルパー
+    const ac = (avgVal, extraCls, itemCells) => {
+      const a = showAvg ? [{v: avgVal, c: `avg-col${extraCls ? ' '+extraCls : ''}`}] : [];
+      return [...a, ...itemCells];
+    };
+
+    // 1着タイム
+    const aTodayTime   = meanOf(items.map(i => i.todayTime));
+    const aTimeAvg     = meanOf(items.map(i => i.timeAvg));
+    const aTimeDiff    = meanOf(items.map(i => i.timeDiff));
+    const aTimeDiffTr  = meanOf(items.map(i => i.timeDiffTrim));
+
+    const rows = [
+      mkSep('1着タイム', span),
+      mkRow('今日のタイム',    ac(aTodayTime  != null ? fmtTime(aTodayTime.toFixed(1))  : '-', 'today',               items.map(i => ({v: i.todayTime != null ? fmtTime(i.todayTime)           : '-', c: 'today'})))),
+      mkRow('過去平均',         ac(aTimeAvg    != null ? fmtTime(aTimeAvg.toFixed(1))    : '-', '',                    items.map(i => ({v: i.timeAvg   != null ? fmtTime(i.timeAvg.toFixed(1))  : '-', c: ''})))),
+      mkRow('全体平均との差',   ac(diffStr(aTimeDiff),   diffCls(aTimeDiff),              items.map(i => ({v: diffStr(i.timeDiff),     c: diffCls(i.timeDiff)})))),
+      mkRow('外れ値除外との差', ac(diffStr(aTimeDiffTr), diffCls(aTimeDiffTr),            items.map(i => ({v: diffStr(i.timeDiffTrim), c: diffCls(i.timeDiffTrim)})))),
+    ];
+
+    if (items.some(i => i.todayAgari != null || i.agariAvg != null)) {
+      const aAgari    = meanOf(items.map(i => i.todayAgari));
+      const aAgariAvg = meanOf(items.map(i => i.agariAvg));
+      const aAgariD   = meanOf(items.map(i => i.agariDiff));
+      const aAgariDTr = meanOf(items.map(i => i.agariDiffTrim));
+      rows.push(
+        mkSep('上り3F', span),
+        mkRow('今日のタイム',    ac(aAgari    != null ? fmtTime(aAgari.toFixed(1))    : '-', 'today',       items.map(i => ({v: i.todayAgari != null ? fmtTime(i.todayAgari)           : '-', c: i.todayAgari != null ? 'today' : ''})))),
+        mkRow('過去平均',         ac(aAgariAvg != null ? fmtTime(aAgariAvg.toFixed(1)) : '-', '',            items.map(i => ({v: i.agariAvg   != null ? fmtTime(i.agariAvg.toFixed(1))  : '-', c: ''})))),
+        mkRow('全体平均との差',   ac(diffStr(aAgariD),   diffCls(aAgariD),             items.map(i => ({v: diffStr(i.agariDiff),     c: diffCls(i.agariDiff)})))),
+        mkRow('外れ値除外との差', ac(diffStr(aAgariDTr), diffCls(aAgariDTr),           items.map(i => ({v: diffStr(i.agariDiffTrim), c: diffCls(i.agariDiffTrim)})))),
+      );
+    }
+    if (items.some(i => i.todayMae3F != null || i.mae3FAvg != null)) {
+      const aMae    = meanOf(items.map(i => i.todayMae3F));
+      const aMaeAvg = meanOf(items.map(i => i.mae3FAvg));
+      const aMaeD   = meanOf(items.map(i => i.mae3FDiff));
+      const aMaeDTr = meanOf(items.map(i => i.mae3FDiffTrim));
+      rows.push(
+        mkSep('前3F', span),
+        mkRow('今日のタイム',    ac(aMae    != null ? fmtTime(aMae.toFixed(1))    : '-', 'today',       items.map(i => ({v: i.todayMae3F != null ? fmtTime(i.todayMae3F)           : '-', c: i.todayMae3F != null ? 'today' : ''})))),
+        mkRow('過去平均',         ac(aMaeAvg != null ? fmtTime(aMaeAvg.toFixed(1)) : '-', '',            items.map(i => ({v: i.mae3FAvg   != null ? fmtTime(i.mae3FAvg.toFixed(1))  : '-', c: ''})))),
+        mkRow('全体平均との差',   ac(diffStr(aMaeD),   diffCls(aMaeD),             items.map(i => ({v: diffStr(i.mae3FDiff),     c: diffCls(i.mae3FDiff)})))),
+        mkRow('外れ値除外との差', ac(diffStr(aMaeDTr), diffCls(aMaeDTr),           items.map(i => ({v: diffStr(i.mae3FDiffTrim), c: diffCls(i.mae3FDiffTrim)})))),
+      );
+    }
+    if (items.some(i => i.todayMae5F != null || i.mae5FAvg != null)) {
+      const aM5    = meanOf(items.map(i => i.todayMae5F));
+      const aM5Avg = meanOf(items.map(i => i.mae5FAvg));
+      const aM5D   = meanOf(items.map(i => i.mae5FDiff));
+      const aM5DTr = meanOf(items.map(i => i.mae5FDiffTrim));
+      rows.push(
+        mkSep('前5F', span),
+        mkRow('今日のタイム',    ac(aM5    != null ? fmtTime(aM5.toFixed(1))    : '-', 'today',       items.map(i => ({v: i.todayMae5F != null ? fmtTime(i.todayMae5F)           : '-', c: i.todayMae5F != null ? 'today' : ''})))),
+        mkRow('過去平均',         ac(aM5Avg != null ? fmtTime(aM5Avg.toFixed(1)) : '-', '',            items.map(i => ({v: i.mae5FAvg   != null ? fmtTime(i.mae5FAvg.toFixed(1))  : '-', c: ''})))),
+        mkRow('全体平均との差',   ac(diffStr(aM5D),   diffCls(aM5D),             items.map(i => ({v: diffStr(i.mae5FDiff),     c: diffCls(i.mae5FDiff)})))),
+        mkRow('外れ値除外との差', ac(diffStr(aM5DTr), diffCls(aM5DTr),           items.map(i => ({v: diffStr(i.mae5FDiffTrim), c: diffCls(i.mae5FDiffTrim)})))),
+      );
+    }
+
+    html += `
+<div class="tsm-group">
+  <div class="tsm-cond">${items[0].condLabel}  /  対象 ${items[0].pool}件</div>
+  <div class="tsm-tbl-wrap">
+    <table class="tsm-tbl">
+      <thead><tr><th class="tsm-row-h"></th>${thHtml}</tr></thead>
+      <tbody>${rows.join('')}</tbody>
+    </table>
+  </div>
+</div>`;
+  }
+
+  html += '</div>';
+  wrap.innerHTML = html;
+  wrap.style.display = '';
+}
+
+// ── ピル操作 ─────────────────────────────────────────────────────────
+
+function togTE(btn) {
+  btn.classList.toggle('on');
+  const id = btn.dataset.tid;
+  if (btn.dataset.g === 'tv' || btn.dataset.g === 'tc') updateTEDistPills(id);
+}
+function togTEPeriod(btn, id) {
+  document.querySelectorAll(`[data-tid="${id}"][data-g="tp"]`).forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  const cr = document.getElementById(`te-cr-${id}`);
+  if (cr) cr.style.display = btn.dataset.v === 'custom' ? 'block' : 'none';
+}
+function togTEDist(btn) {
+  const id = btn.dataset.tid;
+  document.querySelectorAll(`[data-tid="${id}"][data-g="td"].on`).forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+}
+
+function getTEActive(id, g) {
+  return [...document.querySelectorAll(`[data-tid="${id}"][data-g="${g}"].on`)].map(b => b.dataset.v);
+}
+
+function updateTEDistPills(id) {
+  const venues  = getTEActive(id, 'tv');
+  const courses = getTEActive(id, 'tc');
+  const prev    = getTEActive(id, 'td')[0];
+  let pool = all;
+  if (venues.length)  pool = pool.filter(r => venues.includes(r['場所名']));
+  if (courses.length) pool = pool.filter(r => courses.includes(r['コースC']));
+  const dists = [...new Set(pool.map(r => r['距離']).filter(Boolean))]
+    .sort((a, b) => parseInt(a) - parseInt(b));
+  const row = document.getElementById(`te-dist-${id}`);
+  if (!row) return;
+  row.innerHTML = dists.length
+    ? dists.map(d => `<button class="pill${d===prev?' on':''}" data-tid="${id}" data-g="td" data-v="${d}" onclick="togTEDist(this)">${parseInt(d).toLocaleString()}m</button>`).join('')
+    : `<span style="color:var(--dim);font-size:13px">該当なし</span>`;
+}
+
+// ── タイム入力の自動送り ──────────────────────────────────────────────
+
+function autoAdvanceSetup(slotId) {
+  const minEl = document.getElementById(`ts-min-${slotId}`);
+  if (minEl) minEl.addEventListener('input', () => {
+    if (minEl.value.length >= 1) document.getElementById(`ts-sec-${slotId}`)?.focus();
+  });
+  const secEl = document.getElementById(`ts-sec-${slotId}`);
+  if (secEl) secEl.addEventListener('input', () => {
+    if (secEl.value.length >= 2) document.getElementById(`ts-tenth-${slotId}`)?.focus();
+  });
+  const aSecEl = document.getElementById(`ts-as-${slotId}`);
+  if (aSecEl) aSecEl.addEventListener('input', () => {
+    if (aSecEl.value.length >= 2) document.getElementById(`ts-at-${slotId}`)?.focus();
+  });
+  const mSecEl = document.getElementById(`ts-ms-${slotId}`);
+  if (mSecEl) mSecEl.addEventListener('input', () => {
+    if (mSecEl.value.length >= 2) document.getElementById(`ts-mt-${slotId}`)?.focus();
+  });
+  const m5SecEl = document.getElementById(`ts-m5s-${slotId}`);
+  if (m5SecEl) m5SecEl.addEventListener('input', () => {
+    if (m5SecEl.value.length >= 2) document.getElementById(`ts-m5t-${slotId}`)?.focus();
+  });
+}
+
+function readTime(id, prefix) {
+  const m = parseFloat(document.getElementById(`${prefix}-min-${id}`)?.value) || 0;
+  const s = parseFloat(document.getElementById(`${prefix}-sec-${id}`)?.value);
+  const t = parseFloat(document.getElementById(`${prefix}-tenth-${id}`)?.value) || 0;
+  if (isNaN(s)) return null;
+  return Math.round((m * 60 + s + t / 10) * 10) / 10;
+}
+function read3F(id, secId, tenthId) {
+  const s = parseFloat(document.getElementById(secId)?.value);
+  const t = parseFloat(document.getElementById(tenthId)?.value) || 0;
+  if (isNaN(s)) return null;
+  return Math.round((s + t / 10) * 10) / 10;
+}
+
+// ── 統計計算 ─────────────────────────────────────────────────────────
+
+function removeOutliers(arr) {
+  if (arr.length < 8) return [...arr];
+  const s = [...arr].sort((a, b) => a - b), n = s.length;
+  const q1 = s[Math.floor(n * 0.25)], q3 = s[Math.floor(n * 0.75)];
+  const iqr = q3 - q1;
+  if (iqr === 0) return [...arr];
+  const lo = q1 - 1.5 * iqr, hi = q3 + 1.5 * iqr;
+  return arr.filter(v => v >= lo && v <= hi);
+}
+
+function stats(vals) {
+  if (!vals.length) return null;
+  const n   = vals.length;
+  const avg = vals.reduce((s, v) => s + v, 0) / n;
+  const std = Math.sqrt(vals.reduce((s, v) => s + (v - avg) ** 2, 0) / n);
+  const trimmed  = removeOutliers(vals);
+  const trimAvg  = trimmed.reduce((s, v) => s + v, 0) / trimmed.length;
+  const pctFaster = (today) => Math.round(vals.filter(v => v > today).length / n * 100);
+  return { n, avg, std, trimAvg, trimN: trimmed.length, removedN: n - trimmed.length, pctFaster,
+           min: Math.min(...vals), max: Math.max(...vals) };
+}
+
+// ── 期間フィルタ ─────────────────────────────────────────────────────
+
+function parseYYMMDD(s) {
+  if (!s || s.length < 6) return null;
+  return new Date(2000 + +s.slice(0,2), +s.slice(2,4) - 1, +s.slice(4,6));
+}
+
+function filterByPeriod(races, period, fromVal, toVal) {
+  if (period === 'all') return races;
+  const today = new Date();
+  let lo, hi;
+  if (period === '1y')     { lo = new Date(today.getFullYear()-1, today.getMonth(), today.getDate()); hi = today; }
+  else if (period === '2y'){ lo = new Date(today.getFullYear()-2, today.getMonth(), today.getDate()); hi = today; }
+  else if (period === '3y'){ lo = new Date(today.getFullYear()-3, today.getMonth(), today.getDate()); hi = today; }
+  else if (period === 'pm'){
+    const py = today.getFullYear()-1, m = today.getMonth();
+    lo = new Date(py, m-1, 1); hi = new Date(py, m+2, 0);
+  }
+  else if (period === 'ps'){
+    const py = today.getFullYear()-1, m = today.getMonth();
+    lo = new Date(py, m-2, 1); hi = new Date(py, m+3, 0);
+  }
+  else if (period === 'custom'){
+    lo = fromVal ? new Date(fromVal) : null;
+    hi = toVal   ? new Date(toVal)   : null;
+  }
+  return races.filter(r => {
+    const d = parseYYMMDD(r['年月日']);
+    if (!d) return false;
+    if (lo && d < lo) return false;
+    if (hi && d > hi) return false;
+    return true;
+  });
+}
+
+// ── 比較実行 ─────────────────────────────────────────────────────────
+
+function compareTrend(entryId, slotId) {
+  const todayTime  = readTime(slotId, 'ts');
+  if (!todayTime)  { showToast('❗ 1着タイムを入力してください'); return; }
+  const todayAgari = read3F(slotId, `ts-as-${slotId}`, `ts-at-${slotId}`);
+  const todayMae3F = read3F(slotId, `ts-ms-${slotId}`, `ts-mt-${slotId}`);
+  const todayMae5F = read3F(slotId, `ts-m5s-${slotId}`, `ts-m5t-${slotId}`);
+
+  const venues  = getTEActive(entryId, 'tv');
+  const courses = getTEActive(entryId, 'tc');
+  const dists   = getTEActive(entryId, 'td');
+  const babas   = getTEActive(entryId, 'tb');
+  const clss    = getTEActive(entryId, 'tcls');
+  const gens    = getTEActive(entryId, 'tgen');
+  const period  = getTEActive(entryId, 'tp')[0] || 'all';
+  const fromVal = document.getElementById(`te-from-${entryId}`)?.value;
+  const toVal   = document.getElementById(`te-to-${entryId}`)?.value;
+
+  let pool = filterByPeriod(all, period, fromVal, toVal);
+  pool = pool.filter(r => {
+    if (venues.length  && !venues.includes(r['場所名']))    return false;
+    if (courses.length && !courses.includes(r['コースC']))  return false;
+    if (dists.length   && !dists.includes(r['距離']))       return false;
+    if (babas.length   && !babas.includes(r['馬場状態C']))  return false;
+    if (clss.length    && !clss.includes(r['クラスC']))     return false;
+    if (gens.length    && !gens.includes(r['世代限定C']))   return false;
+    return true;
+  });
+
+  const timeVals  = pool.map(r => parseFloat(r['1着タイム'])).filter(v => v > 0 && !isNaN(v));
+  const agariVals = pool.map(r => parseFloat(r['1着上り3F'])).filter(v => v > 0 && !isNaN(v));
+  const mae3FVals = pool.map(r => parseFloat(r['前3F通過'])).filter(v => v > 0 && !isNaN(v));
+  const mae5FVals = pool.map(r => parseFloat(r['前5F通過'])).filter(v => v > 0 && !isNaN(v));
+
+  const condLabel  = buildCondLabel(venues, courses, dists, babas, clss, gens, period, fromVal, toVal);
+  const resultData = {
+    condLabel, pool: pool.length,
+    venues, courses, dists,
+    timeStats:  stats(timeVals),  todayTime,  timeVals,
+    agariStats: stats(agariVals), todayAgari, agariVals,
+    mae3FStats: stats(mae3FVals), todayMae3F, mae3FVals,
+    mae5FStats: stats(mae5FVals), todayMae5F, mae5FVals,
+  };
+  renderTrendResult(slotId, resultData);
+  storeTrendResult(slotId, entryId, resultData);
+}
+
+function buildCondLabel(venues, courses, dists, babas, clss, gens, period, f, t) {
+  const parts = [];
+  if (venues.length)  parts.push(venues.join('・'));
+  if (courses.length) parts.push(courses.join('/'));
+  if (dists.length)   parts.push(parseInt(dists[0]).toLocaleString() + 'm');
+  if (babas.length)   parts.push(babas.map(b => BABA[b]).join('/'));
+  if (clss.length)    parts.push(clss.map(c => CLS_LBL[c]).join('/'));
+  if (gens.length)    parts.push(gens.map(g => GEN_LBL[g]).join('/'));
+  const P = {'all':'全期間','1y':'直近1年','2y':'直近2年','3y':'直近3年',
+              'pm':'前年同月','ps':'前年同季','custom':'カスタム'};
+  const pLabel = P[period] || period;
+  const dateRange = period === 'custom' ? `（${f||''}〜${t||''}）` : '';
+  return (parts.join(' ') || '全条件') + `  [${pLabel}${dateRange}]`;
+}
+
+// ── 結果描画 ─────────────────────────────────────────────────────────
+
+function renderTrendResult(slotId, d) {
+  const el = document.getElementById(`ts-result-${slotId}`);
+  if (!el) return;
+  if (!d.pool || !d.timeStats) {
+    el.innerHTML = `<div class="tr-empty">条件に合うレースが見つかりませんでした</div>`;
+    return;
+  }
+
+  function secBlock(label, st, todayVal, vals) {
+    if (!st || todayVal == null) return '';
+    const diff     = todayVal - st.avg;
+    const diffTrim = todayVal - st.trimAvg;
+    const cls  = (d) => d < -0.05 ? 'faster' : d > 0.05 ? 'slower' : 'same';
+    const sign = (d) => d < -0.05 ? '▼' : d > 0.05 ? '▲' : '±';
+    const word = (d) => d < -0.05 ? '速い' : d > 0.05 ? '遅い' : '同じ';
+    const pct  = st.pctFaster(todayVal);
+    return `
+<div class="tr-section">
+  <div class="tr-sec-title">${label}</div>
+  <div class="tr-grid">
+    <div class="tr-cell">
+      <div class="tr-k">今日のタイム</div>
+      <div class="tr-v today">${fmtTime(todayVal)}</div>
+    </div>
+    <div class="tr-cell">
+      <div class="tr-k">過去平均 <span style="font-weight:400">(N=${st.n})</span></div>
+      <div class="tr-v">${fmtTime(st.avg.toFixed(1))}</div>
+      <div class="tr-sub">σ=${st.std.toFixed(2)}  最速${fmtTime(st.min.toFixed(1))} 最遅${fmtTime(st.max.toFixed(1))}</div>
+    </div>
+    <div class="tr-cell">
+      <div class="tr-k">全体平均との差</div>
+      <div class="tr-v ${cls(diff)}">${sign(diff)} ${Math.abs(diff).toFixed(1)}秒 ${word(diff)}</div>
+    </div>
+    <div class="tr-cell">
+      <div class="tr-k">外れ値除外平均との差</div>
+      <div class="tr-v ${cls(diffTrim)}">${sign(diffTrim)} ${Math.abs(diffTrim).toFixed(1)}秒 ${word(diffTrim)}</div>
+      <div class="tr-sub">除外 ${st.removedN}件 / 残 ${st.trimN}件</div>
+    </div>
+  </div>
+  <div class="tr-pct">過去 <em>${pct}%</em> のレースより速いタイム</div>
+</div>`;
+  }
+
+  const klabHTML = buildTrendKlabLinks(d.venues, d.courses, d.dists);
+  el.innerHTML = `
+<div class="tr-card">
+  <div class="tr-cond">${d.condLabel}  /  対象 ${d.pool}件</div>
+  ${klabHTML}
+  ${secBlock('1着タイム', d.timeStats, d.todayTime, d.timeVals)}
+  ${secBlock('上り3F', d.agariStats, d.todayAgari, d.agariVals)}
+  ${secBlock('前3F', d.mae3FStats, d.todayMae3F, d.mae3FVals)}
+  ${secBlock('前5F', d.mae5FStats, d.todayMae5F, d.mae5FVals)}
+</div>
+<button class="btn-to-summary" onclick="scrollToSummary()">📋 比較一覧を見る ↓</button>`;
+}
+
+// ── エントリーHTML生成 ────────────────────────────────────────────────
+
+function buildEntryHTML(id) {
+  const venues = [...new Set(all.map(r => r['場所名']).filter(Boolean))].sort();
+  const vHtml  = venues.map(v =>
+    `<button class="pill" data-tid="${id}" data-g="tv" data-v="${v}" onclick="togTE(this)">${v}</button>`
+  ).join('');
+
+  return `
+<div class="te-head">
+  <span class="te-num">レース #${id}</span>
+  <button class="te-del" onclick="removeTrendEntry(${id})">✕ 削除</button>
+</div>
+
+<div class="f-group">
+  <div class="f-label">比較期間</div>
+  <div class="pill-row">
+    <button class="pill on" data-tid="${id}" data-g="tp" data-v="all"    onclick="togTEPeriod(this,${id})">全期間</button>
+    <button class="pill"    data-tid="${id}" data-g="tp" data-v="1y"     onclick="togTEPeriod(this,${id})">直近1年</button>
+    <button class="pill"    data-tid="${id}" data-g="tp" data-v="2y"     onclick="togTEPeriod(this,${id})">直近2年</button>
+    <button class="pill"    data-tid="${id}" data-g="tp" data-v="3y"     onclick="togTEPeriod(this,${id})">直近3年</button>
+    <button class="pill"    data-tid="${id}" data-g="tp" data-v="pm"     onclick="togTEPeriod(this,${id})">前年同月</button>
+    <button class="pill"    data-tid="${id}" data-g="tp" data-v="ps"     onclick="togTEPeriod(this,${id})">前年同季</button>
+    <button class="pill"    data-tid="${id}" data-g="tp" data-v="custom" onclick="togTEPeriod(this,${id})">カスタム</button>
+  </div>
+  <div id="te-cr-${id}" style="display:none; margin-top:8px">
+    <div class="row2">
+      <input type="date" class="finput" id="te-from-${id}">
+      <input type="date" class="finput" id="te-to-${id}">
+    </div>
+  </div>
+</div>
+
+<div class="f-group">
+  <div class="f-label">開催場所</div>
+  <div class="pill-row">${vHtml}</div>
+</div>
+
+<div class="f-group">
+  <div class="f-label">コース</div>
+  <div class="pill-row">
+    <button class="pill" data-tid="${id}" data-g="tc" data-v="芝"    onclick="togTE(this)">芝（内）</button>
+    <button class="pill" data-tid="${id}" data-g="tc" data-v="芝外"  onclick="togTE(this)">芝外回り</button>
+    <button class="pill" data-tid="${id}" data-g="tc" data-v="ダート" onclick="togTE(this)">ダート</button>
+  </div>
+</div>
+
+<div class="f-group">
+  <div class="f-label">距離（1つ選択）</div>
+  <div class="pill-row" id="te-dist-${id}">
+    <span style="color:var(--dim);font-size:13px">場所またはコースを選ぶと表示されます</span>
+  </div>
+</div>
+
+<div class="f-group">
+  <div class="f-label">馬場状態</div>
+  <div class="pill-row">
+    <button class="pill" data-tid="${id}" data-g="tb" data-v="1" onclick="togTE(this)">良</button>
+    <button class="pill" data-tid="${id}" data-g="tb" data-v="2" onclick="togTE(this)">稍重</button>
+    <button class="pill" data-tid="${id}" data-g="tb" data-v="3" onclick="togTE(this)">重</button>
+    <button class="pill" data-tid="${id}" data-g="tb" data-v="4" onclick="togTE(this)">不良</button>
+  </div>
+</div>
+
+<div class="f-group">
+  <div class="f-label">クラス</div>
+  <div class="pill-row">
+    <button class="pill" data-tid="${id}" data-g="tcls" data-v="195" onclick="togTE(this)">G1</button>
+    <button class="pill" data-tid="${id}" data-g="tcls" data-v="179" onclick="togTE(this)">G2</button>
+    <button class="pill" data-tid="${id}" data-g="tcls" data-v="163" onclick="togTE(this)">G3</button>
+    <button class="pill" data-tid="${id}" data-g="tcls" data-v="131" onclick="togTE(this)">オープン</button>
+    <button class="pill" data-tid="${id}" data-g="tcls" data-v="115" onclick="togTE(this)">OP(L)</button>
+    <button class="pill" data-tid="${id}" data-g="tcls" data-v="67"  onclick="togTE(this)">3勝</button>
+    <button class="pill" data-tid="${id}" data-g="tcls" data-v="43"  onclick="togTE(this)">2勝</button>
+    <button class="pill" data-tid="${id}" data-g="tcls" data-v="23"  onclick="togTE(this)">1勝</button>
+    <button class="pill" data-tid="${id}" data-g="tcls" data-v="7"   onclick="togTE(this)">未勝利</button>
+    <button class="pill" data-tid="${id}" data-g="tcls" data-v="15"  onclick="togTE(this)">新馬</button>
+  </div>
+</div>
+
+<div class="f-group">
+  <div class="f-label">世代</div>
+  <div class="pill-row">
+    <button class="pill" data-tid="${id}" data-g="tgen" data-v="11" onclick="togTE(this)">2歳</button>
+    <button class="pill" data-tid="${id}" data-g="tgen" data-v="12" onclick="togTE(this)">3歳</button>
+    <button class="pill" data-tid="${id}" data-g="tgen" data-v="13" onclick="togTE(this)">3歳以上</button>
+    <button class="pill" data-tid="${id}" data-g="tgen" data-v="14" onclick="togTE(this)">4歳以上</button>
+  </div>
+</div>
+
+<div class="te-slots" id="te-slots-${id}"></div>
+<button class="btn-add-slot" onclick="addTrendSlot(${id})">＋ タイムを追加</button>`;
+}
+
+function parseLapPaste(slotId) {
+  const ta  = document.getElementById(`ts-lap-${slotId}`);
+  const msg = document.getElementById(`ts-lap-msg-${slotId}`);
+  const raw = ta.value.trim();
+  if (!raw) {
+    ta.className = 'lap-paste';
+    msg.className = 'lap-parsed';
+    msg.textContent = '';
+    return;
+  }
+  const parts = raw.split(/\s*[-–—]\s*/).map(s => s.trim()).filter(s => s);
+  const laps  = parts.map(s => parseFloat(s));
+  if (laps.some(isNaN) || laps.length < 3) {
+    ta.className = 'lap-paste err';
+    msg.className = 'lap-parsed err';
+    msg.textContent = `エラー: ラップデータを認識できません（${laps.length} 区間）`;
+    return;
+  }
+  const t = laps.map(v => Math.round(v * 10));
+  const total  = t.reduce((a, b) => a + b, 0);
+  const totSec = Math.floor(total / 10);
+  const totTen = total % 10;
+  const totMin = Math.floor(totSec / 60);
+  const totRem = totSec % 60;
+  document.getElementById(`ts-min-${slotId}`).value   = totMin;
+  document.getElementById(`ts-sec-${slotId}`).value   = totRem;
+  document.getElementById(`ts-tenth-${slotId}`).value = totTen;
+  const mae3 = t.slice(0, 3).reduce((a, b) => a + b, 0);
+  document.getElementById(`ts-ms-${slotId}`).value = Math.floor(mae3 / 10);
+  document.getElementById(`ts-mt-${slotId}`).value = mae3 % 10;
+  const agari3 = t.slice(-3).reduce((a, b) => a + b, 0);
+  document.getElementById(`ts-as-${slotId}`).value = Math.floor(agari3 / 10);
+  document.getElementById(`ts-at-${slotId}`).value = agari3 % 10;
+  if (laps.length >= 5) {
+    const mae5 = t.slice(0, 5).reduce((a, b) => a + b, 0);
+    document.getElementById(`ts-m5s-${slotId}`).value = Math.floor(mae5 / 10);
+    document.getElementById(`ts-m5t-${slotId}`).value = mae5 % 10;
+  }
+  ta.className = 'lap-paste ok';
+  msg.className = 'lap-parsed';
+  const fmt3F = v => `${Math.floor(v/10)}.${v%10}`;
+  msg.textContent = `✓ ${laps.length}区間 | タイム ${totMin}:${String(totRem).padStart(2,'0')}.${totTen} | 前3F ${fmt3F(mae3)} | 上がり3F ${fmt3F(agari3)}`;
+}
+
+function buildSlotHTML(entryId, slotId, slotNum) {
+  return `
+<div id="ts-${slotId}" class="te-slot">
+  <div class="te-slot-head">
+    <span class="te-slot-num">タイム #${slotNum}</span>
+    <button class="ts-del" onclick="removeTrendSlot(${slotId},${entryId})" style="display:none">✕ 削除</button>
+  </div>
+  <div class="lap-wrap" style="margin-bottom:12px">
+    <label class="ti-lbl" style="margin-bottom:6px;display:block">ラップ貼付け <span class="ti-opt">任意</span></label>
+    <textarea id="ts-lap-${slotId}" class="lap-paste" rows="2" placeholder="12.4 - 10.5 - 12.2 - 12.1 - 11.7 - 11.6 - 11.8 - 11.4 - 11.1 - 11.7" oninput="parseLapPaste(${slotId})"></textarea>
+    <div id="ts-lap-msg-${slotId}" class="lap-parsed"></div>
+  </div>
+  <div class="time-rows">
+    <div class="time-row">
+      <span class="ti-lbl">1着タイム</span>
+      <div class="ti-field">
+        <input id="ts-min-${slotId}"   type="number" class="ti-box w-min"   min="0" max="5"  placeholder="0"  inputmode="numeric">
+        <span class="ti-unit">分</span>
+        <input id="ts-sec-${slotId}"   type="number" class="ti-box w-sec"   min="0" max="59" placeholder="00" inputmode="numeric">
+        <span class="ti-unit">秒</span>
+        <input id="ts-tenth-${slotId}" type="number" class="ti-box w-tenth" min="0" max="9"  placeholder="0"  inputmode="numeric">
+      </div>
+    </div>
+    <div class="time-row">
+      <span class="ti-lbl">上り3F <span class="ti-opt">任意</span></span>
+      <div class="ti-field">
+        <input id="ts-as-${slotId}" type="number" class="ti-box w-sec"   min="30" max="50" placeholder="00" inputmode="numeric">
+        <span class="ti-unit">秒</span>
+        <input id="ts-at-${slotId}" type="number" class="ti-box w-tenth" min="0"  max="9"  placeholder="0"  inputmode="numeric">
+      </div>
+    </div>
+    <div class="time-row">
+      <span class="ti-lbl">前3F <span class="ti-opt">任意</span></span>
+      <div class="ti-field">
+        <input id="ts-ms-${slotId}" type="number" class="ti-box w-sec"   min="30" max="50" placeholder="00" inputmode="numeric">
+        <span class="ti-unit">秒</span>
+        <input id="ts-mt-${slotId}" type="number" class="ti-box w-tenth" min="0"  max="9"  placeholder="0"  inputmode="numeric">
+      </div>
+    </div>
+    <div class="time-row">
+      <span class="ti-lbl">前5F <span class="ti-opt">任意</span></span>
+      <div class="ti-field">
+        <input id="ts-m5s-${slotId}" type="number" class="ti-box w-sec"   min="55" max="80" placeholder="00" inputmode="numeric">
+        <span class="ti-unit">秒</span>
+        <input id="ts-m5t-${slotId}" type="number" class="ti-box w-tenth" min="0"  max="9"  placeholder="0"  inputmode="numeric">
+      </div>
+    </div>
+  </div>
+  <button class="btn-compare" onclick="compareTrend(${entryId},${slotId})">比較する</button>
+  <div id="ts-result-${slotId}"></div>
+</div>`;
 }
 </script>
 </body>
